@@ -1,6 +1,6 @@
 
 
-# mock-PL-backend
+# BOP
 
 A fullstack app for a book publications 
 
