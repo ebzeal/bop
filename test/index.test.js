@@ -27,8 +27,6 @@ afterEach(() => {
 });
 
 describe('GET / should display welcome message', () => {
-  console.log('TCL: process.env.NODE_ENV22222k', process.env.NODE_ENV);
-
   it('welcomes the user', async () => {
     const response = await request.get('/api/v1/');
     expect(response.status).toEqual(200);

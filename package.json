@@ -8,7 +8,14 @@
     "start": "node build/index.js",
     "test": "NODE_ENV=test jest --detectOpenHandles --forceExit -u --coverage ",
     "test:watch": "NODE_ENV=test jest -u --coverage --watch",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "undomigrate": "babel-node node_modules/.bin/sequelize db:migrate:undo:all",
+    "migrate": "npm run undomigrate && babel-node node_modules/.bin/sequelize db:migrate",
+    "undoseed": "babel-node node_modules/.bin/sequelize db:seed:undo:all",
+    "seed": "babel-node node_modules/.bin/sequelize db:seed:all",
+    "test-undoseed": "cross-env NODE_ENV=test npm run undoseed",
+    "test-seed": "cross-env NODE_ENV=test npm run seed",
+    "migrate:test": "cross-env NODE_ENV=test npm run migrate && npm run test-seed"
   },
   "repository": {
     "type": "git",
@@ -29,21 +36,27 @@
     "@babel/register": "^7.6.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^8.0.6",
+    "cross-env": "^7.0.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.18.2",
     "jest": "^24.9.0",
     "nodemon": "^1.19.3",
     "nyc": "^15.0.0",
+    "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0",
+    "sequelize-cli": "^5.5.1",
     "supertest": "^4.0.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.6.3",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "coveralls": "^3.0.9",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^7.18.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.4"
