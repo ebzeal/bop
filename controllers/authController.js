@@ -1,7 +1,6 @@
-import db from '../models';
-import response from '../utils/apiResponse';
-import tokenHelp from '../utils/jwtToken';
-import passwordHelp from '../utils/passwordHelp';
+import {
+  db, response, tokenHelp, passwordHelp
+} from '../utils/controllerImports';
 
 const { User, Sequelize } = db;
 /**
@@ -13,7 +12,8 @@ class AuthController {
    * @param {*} req Request
    * @param {*} res Response
    * @returns {object} Json response
-   * @memberof authController
+   * @memberof AuthController
+   * @description logs users in
    */
   static async logIn(req, res) {
     try {
