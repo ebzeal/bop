@@ -1,8 +1,9 @@
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/291d42470224a12f0b70/maintainability)](https://codeclimate.com/github/ebzeal/bop/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/291d42470224a12f0b70/test_coverage)](https://codeclimate.com/github/ebzeal/bop/test_coverage)
 
 # BOP
 
-A fullstack app for a book publications 
+A fullstack app for a book publications project
 
 # Documentation
 

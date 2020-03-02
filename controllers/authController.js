@@ -1,7 +1,6 @@
-import db from '../models';
-import response from '../utils/apiResponse';
-import tokenHelp from '../utils/jwtToken';
-import passwordHelp from '../utils/passwordHelp';
+import {
+  db, response, tokenHelp, passwordHelp
+} from '../utils/controllerImports';
 
 const { User, Sequelize } = db;
 /**
@@ -13,7 +12,8 @@ class AuthController {
    * @param {*} req Request
    * @param {*} res Response
    * @returns {object} Json response
-   * @memberof authController
+   * @memberof AuthController
+   * @description logs users in
    */
   static async logIn(req, res) {
     try {
@@ -41,7 +41,7 @@ class AuthController {
       };
 
       const token = tokenHelp.sign(payload);
-      return response(res, 200, 'success', 'You have successfully logged in', '', token);
+      return response(res, 202, 'success', 'You have successfully logged in', '', token);
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);
