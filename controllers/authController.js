@@ -22,7 +22,6 @@ class AuthController {
       const isUserFound = await User.findOne({
         where: { email },
       });
-      console.log('TCL: AuthController -> logIn -> isUserFound', isUserFound);
 
       if (!isUserFound) {
         return response(res, 404, 'failure', 'Your login information is not correct');
