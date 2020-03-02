@@ -22,6 +22,7 @@ class AuthController {
       const isUserFound = await User.findOne({
         where: { email },
       });
+      console.log('TCL: AuthController -> logIn -> isUserFound', isUserFound);
 
       if (!isUserFound) {
         return response(res, 404, 'failure', 'Your login information is not correct');
@@ -41,7 +42,7 @@ class AuthController {
       };
 
       const token = tokenHelp.sign(payload);
-      return response(res, 200, 'success', 'You have successfully logged in', '', token);
+      return response(res, 202, 'success', 'You have successfully logged in', '', token);
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);

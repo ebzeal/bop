@@ -9,6 +9,7 @@ export default (sequelize, DataTypes) => {
       genre: DataTypes.STRING,
       description: DataTypes.TEXT,
       price: DataTypes.FLOAT,
+      pictures: DataTypes.ARRAY(DataTypes.TEXT),
     },
     {}
   );

@@ -23,7 +23,7 @@ describe('user can login', () => {
       data: { statusCode, message, payload },
     } = response.body;
     expect(status).toEqual('success');
-    expect(statusCode).toBe(200);
+    expect(statusCode).toBe(202);
     expect(message).toEqual('You have successfully logged in');
     expect(payload).toBeDefined();
   });
