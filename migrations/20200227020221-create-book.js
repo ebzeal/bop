@@ -1,10 +1,10 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Books', {
+  up: (queryInterface, Sequelize) => queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";').then(() => queryInterface.createTable('Books', {
     id: {
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.INTEGER,
+      type: Sequelize.UUID,
+      defaultValue: Sequelize.literal('uuid_generate_v4()'),
     },
     book: {
       type: Sequelize.STRING,
@@ -36,6 +36,6 @@ export default {
       allowNull: false,
       type: Sequelize.DATE,
     },
-  }),
+  })),
   down: (queryInterface, Sequelize) => queryInterface.dropTable('Books'),
 };

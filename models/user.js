@@ -13,7 +13,12 @@ export default (sequelize, DataTypes) => {
     {}
   );
   User.associate = (models) => {
-    // associations can be defined here
+    const { Article } = models;
+
+    User.hasMany(Article, {
+      as: 'articles',
+      foreignKey: 'userId',
+    });
   };
   return User;
 };

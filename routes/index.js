@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import authRoutes from './apiRoutes/authApi';
 import bookRoutes from './apiRoutes/bookApi';
+import articleRoutes from './apiRoutes/articleApi';
 
 const route = Router();
 
@@ -10,5 +11,6 @@ route.get('/', (req, res) => {
 
 route.use(authRoutes);
 route.use(bookRoutes);
+route.use('/blog', articleRoutes);
 
 export default route;
