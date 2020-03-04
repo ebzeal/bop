@@ -1,6 +1,6 @@
 import { db, response } from '../../utils/controllerImports';
 import articleDetails from './articleDetails';
-import getAnArticleUtils from './getAnArticleUtils';
+import ControllerUtils from '../../utils/controllerUtils';
 
 const { Article, Sequelize } = db;
 
@@ -45,8 +45,7 @@ class ArticleController {
    */
   static async getArticles(req, res) {
     try {
-      const getAllArticles = await Article.findAll();
-      return response(res, 201, 'success', '', null, getAllArticles);
+      await ControllerUtils.getAll(req, res, Article);
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);
@@ -63,9 +62,7 @@ class ArticleController {
    */
   static async getArticle(req, res) {
     try {
-      const getArticle = await getAnArticleUtils(req);
-      if (!getArticle) return response(res, 404, 'failure', 'Article not found');
-      return response(res, 201, 'success', '', null, getArticle);
+      await ControllerUtils.getOne(req, res, Article, 'Article');
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);
@@ -82,7 +79,7 @@ class ArticleController {
    */
   static async updateArticle(req, res) {
     try {
-      const getArticle = await getAnArticleUtils(req);
+      const getArticle = await ControllerUtils.getAnItem(req);
       if (!getArticle) return response(res, 404, 'failure', 'Article not found');
 
       const theArticleDetails = articleDetails(req.body, req.user);
@@ -104,13 +101,10 @@ class ArticleController {
    */
   static async deleteArticle(req, res) {
     try {
-      const getArticle = await getAnArticleUtils(req);
-      if (!getArticle) return response(res, 404, 'failure', 'Article not found');
-      await getArticle.destroy();
-      return response(res, 200, 'success', 'Article was deleted successfully', null, null);
+      await ControllerUtils.deleteOne(req, res, Article, 'Article');
     } catch (error) {
       /* istanbul ignore next */
-      return response(res, 500, 'failure', 'Internal Server Error, please contact admin');
+      return res.status(500).send(error);
     }
   }
 }

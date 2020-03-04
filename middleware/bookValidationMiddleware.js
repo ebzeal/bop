@@ -31,18 +31,14 @@ class BookValidationMiddleware {
       const isDate = validateDate(datePublished);
       const isPagesNumbers = validateInteger(numOfPages);
       const isPrice = validateFloat(price);
-      if (!isBookNameLength) return response(res, 406, 'failure', `Name of book must be at least ${stringLength} string character`, null);
-
-      if (!isAuthor) return response(res, 406, 'failure', `Name of Author must be at least ${stringLength} string character`, null);
-
-      if (!isPagesNumbers) return response(res, 406, 'failure', 'Price must be numbers', null);
-
-      if (!isDate) return response(res, 406, 'failure', "Enter validate date pattern 'yyyy-mm-dd'", null);
-
-      if (!isDescription) return response(res, 406, 'failure', `Description field must be at least ${descLength} string character`, null);
-
-      if (!isPrice) return response(res, 406, 'failure', 'Enter valid price', null);
-      next();
+      const err = [];
+      if (!isBookNameLength) err.push(`Name of book must be at least ${stringLength} string character`);
+      if (!isAuthor) err.push(`Name of Author must be at least ${stringLength} string character`);
+      if (!isDescription) err.push(`Description field must be at least ${descLength} string character`);
+      if (!isDate) err.push("Enter validate date pattern 'yyyy-mm-dd'");
+      if (!isPagesNumbers) err.push('Page Number must be integer');
+      if (!isPrice) err.push('Enter Valid Price');
+      return err.length > 0 ? response(res, 406, 'failure', err, null) : next();
     } catch (err) {
       console.log('err', err);
     }

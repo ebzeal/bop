@@ -26,12 +26,10 @@ class AdminAccessMiddleware {
       }
     } catch (error) {
       const { name } = error;
-      if (name === 'TokenExpiredError' || name === 'JsonWebTokenError') {
-        return response(res, 401, 'failure', 'You need to log in again.');
-      }
-      return response(res, 500, 'failure', 'An error occured on the server', error.message);
+      return name
+        ? response(res, 401, 'failure', 'You need to log in again.')
+        : response(res, 500, 'failure', 'An error occured on the server', error.message);
     }
   }
 }
-
 export default AdminAccessMiddleware;

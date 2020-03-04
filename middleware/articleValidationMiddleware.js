@@ -17,11 +17,10 @@ class ArticleValidationMiddleware {
    */
   static createArticleValidation(req, res, next) {
     try {
-      const { title, tweets, content } = req.body;
+      const { title, content } = req.body;
       const stringLength = 2;
       const contentLength = 50;
       const isTitleLength = validateString(title, stringLength);
-      // const isTweet = validateString(tweets, stringLength);
       const isContentLength = validateString(content, contentLength);
       if (!isTitleLength) {
         return response(

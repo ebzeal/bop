@@ -1,6 +1,6 @@
 import { db, response } from '../../utils/controllerImports';
 import bookDetails from './bookDetails';
-import getABookUtils from './getABookUtils';
+import ControllerUtils from '../../utils/controllerUtils';
 
 const { Book, Sequelize } = db;
 
@@ -47,8 +47,7 @@ class BookController {
    */
   static async getBooks(req, res) {
     try {
-      const getAllBooks = await Book.findAll();
-      return response(res, 201, 'success', '', null, getAllBooks);
+      await ControllerUtils.getAll(req, res, Book);
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);
@@ -65,9 +64,7 @@ class BookController {
    */
   static async getBook(req, res) {
     try {
-      const getBook = await getABookUtils(req);
-      if (!getBook) return response(res, 404, 'failure', 'Book not found');
-      return response(res, 201, 'success', '', null, getBook);
+      await ControllerUtils.getOne(req, res, Book, 'Book');
     } catch (error) {
       /* istanbul ignore next */
       return res.status(500).send(error);
@@ -84,7 +81,7 @@ class BookController {
    */
   static async updateBook(req, res) {
     try {
-      const getBook = await getABookUtils(req);
+      const getBook = await ControllerUtils.getAnItem(req);
       if (!getBook) return response(res, 404, 'failure', 'Book not found');
 
       const theBookDetails = bookDetails(req.body);
@@ -106,13 +103,10 @@ class BookController {
    */
   static async deleteBook(req, res) {
     try {
-      const getBook = await getABookUtils(req);
-      if (!getBook) return response(res, 404, 'failure', 'Book not found');
-      await getBook.destroy();
-      return response(res, 200, 'success', 'Book was deleted successfully', null, null);
+      await ControllerUtils.deleteOne(req, res, Book, 'Book');
     } catch (error) {
       /* istanbul ignore next */
-      return response(res, 500, 'failure', 'Internal Server Error, please contact admin');
+      return res.status(500).send(error);
     }
   }
 }
